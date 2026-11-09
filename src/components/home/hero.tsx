@@ -11,30 +11,30 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-[95vh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center">
-      {/* Background Image: Studio Wall Photo (Image 2) - FULLY VISIBLE */}
+      {/* Photo de fond du studio (studio-bg.jpg) - 100% VISIBLE */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         {!imgError ? (
           <Image
             src="/studio-bg.jpg"
-            alt="Studio OCD Live Lomé - Mur Afrique Rétroéclairé"
+            alt="Studio OCD Live Lomé"
             fill
             priority
-            quality={95}
+            quality={100}
             sizes="100vw"
-            className="object-cover object-center scale-100 transition-opacity duration-700 opacity-95 brightness-105 saturate-110"
+            className="object-cover object-center scale-100 transition-opacity duration-700 opacity-100 brightness-105 saturate-110"
             onError={() => setImgError(true)}
           />
         ) : null}
 
-        {/* Soft subtle gradient at top and bottom to seamlessly merge header & footer while keeping center photo bright & visible */}
-        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#090a0f] via-[#090a0f]/60 to-transparent pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/70 to-transparent pointer-events-none" />
+        {/* Lers fondu aux bords pour raccorder le header et footer sans cacher le centre */}
+        <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#090a0f] via-[#090a0f]/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/60 to-transparent pointer-events-none" />
       </div>
 
-      {/* Main Content inside a Translucent Glass Card to keep photo visible & text crisp */}
+      {/* Contenu principal dans une carte en verre translucide */}
       <div className="relative z-10 mx-auto max-w-4xl">
-        <div className="glass-deep backdrop-blur-md bg-black/65 border border-white/15 p-6 sm:p-12 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.7)]">
-          {/* Top Badge */}
+        <div className="glass-deep backdrop-blur-md bg-black/60 border border-white/15 p-6 sm:p-12 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.7)]">
+          {/* Badge du haut */}
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export default function Hero() {
             <span>LIVE SHOPPING · STUDIO LOMÉ & HUB AFRIQUE</span>
           </motion.div>
 
-          {/* Headline */}
+          {/* Titre Principal */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ export default function Hero() {
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
+          {/* Sous-titre */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -76,7 +76,7 @@ export default function Hero() {
             Réserve une session d&apos;1h30 dans notre studio pro à Lomé — ou diffuse depuis ta propre boutique partout en Afrique. Simple comme un message WhatsApp.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* Boutons d'action */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export default function Hero() {
             </Link>
           </motion.div>
 
-          {/* Stats Bar */}
+          {/* Statistiques clés */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
