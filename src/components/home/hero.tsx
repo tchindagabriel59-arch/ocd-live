@@ -1,158 +1,126 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
-import { ChevronDown, Globe2, MapPin, Star, TrendingUp, Users } from "lucide-react";
-import { Logo } from "@/components/logo";
+import Image from "next/image";
+import { useState } from "react";
+import { Calendar, PlayCircle } from "lucide-react";
 
-const container = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.09, delayChildren: 0.1 } },
-};
-const item = {
-  hidden: { opacity: 0, y: 26, filter: "blur(6px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
-  },
-};
-
-const STATS = [
-  { icon: TrendingUp, value: "1 200+", label: "lives diffusés / mois" },
-  { icon: Globe2, value: "12", label: "pays connectés au Hub" },
-  { icon: Users, value: "480+", label: "vendeuses accompagnées" },
-  { icon: Star, value: "4,9/5", label: "satisfaction vendeurs" },
-];
-
-export function Hero() {
-  const reduce = useReducedMotion();
+export default function Hero() {
+  const [imgError, setImgError] = useState(false);
 
   return (
-    <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-4 pt-24 pb-14">
-      {/* ——— Aurora de fond ——— */}
-      <div aria-hidden className="absolute inset-0">
-        <div className="absolute -top-32 left-1/2 h-[420px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(0,242,254,0.14),transparent)] blur-2xl" />
-        <div className="absolute right-[-15%] bottom-[-10%] h-[460px] w-[460px] rounded-full bg-[radial-gradient(closest-side,rgba(255,0,80,0.16),transparent)] blur-3xl" />
-        <div className="absolute top-1/3 left-[-12%] h-[380px] w-[380px] rounded-full bg-[radial-gradient(closest-side,rgba(236,72,153,0.1),transparent)] blur-3xl" />
-        {/* grille fine */}
-        <div
-          className="absolute inset-0 opacity-[0.16]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
-            backgroundSize: "56px 56px",
-            maskImage:
-              "radial-gradient(ellipse 75% 60% at 50% 38%, black 30%, transparent 75%)",
-            WebkitMaskImage:
-              "radial-gradient(ellipse 75% 60% at 50% 38%, black 30%, transparent 75%)",
-          }}
-        />
+    <section className="relative flex min-h-[95vh] flex-col items-center justify-center overflow-hidden px-4 pt-28 pb-16 text-center">
+      {/* Background Image: Studio Wall Photo (Image 2) - FULLY VISIBLE */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {!imgError ? (
+          <Image
+            src="/studio-bg.jpg"
+            alt="Studio OCD Live Lomé - Mur Afrique Rétroéclairé"
+            fill
+            priority
+            quality={95}
+            sizes="100vw"
+            className="object-cover object-center scale-100 transition-opacity duration-700 opacity-95 brightness-105 saturate-110"
+            onError={() => setImgError(true)}
+          />
+        ) : null}
+
+        {/* Soft subtle gradient at top and bottom to seamlessly merge header & footer while keeping center photo bright & visible */}
+        <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-[#090a0f] via-[#090a0f]/60 to-transparent pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/70 to-transparent pointer-events-none" />
       </div>
 
-      <motion.div
-        variants={reduce ? undefined : container}
-        initial={reduce ? false : "hidden"}
-        animate={reduce ? undefined : "show"}
-        className="relative z-10 flex w-full max-w-3xl flex-col items-center text-center"
-      >
-        {/* ——— Lockup logo monumental avec anneaux orbitaux ——— */}
-        <motion.div variants={item} className="relative mb-10 grid place-items-center">
-          <div
-            aria-hidden
-            className="spin-slower absolute size-[240px] rounded-full border border-dashed border-white/12 sm:size-[300px]"
-          />
-          <div
-            aria-hidden
-            className="spin-rev absolute size-[290px] rounded-full border border-white/5 sm:size-[360px]"
+      {/* Main Content inside a Translucent Glass Card to keep photo visible & text crisp */}
+      <div className="relative z-10 mx-auto max-w-4xl">
+        <div className="glass-deep backdrop-blur-md bg-black/65 border border-white/15 p-6 sm:p-12 rounded-3xl shadow-[0_20px_80px_rgba(0,0,0,0.7)]">
+          {/* Top Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: -15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/40 bg-amber-500/10 px-4 py-1.5 text-xs font-bold tracking-wide text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.25)]"
           >
-            <span className="bg-neon absolute -top-[3px] left-1/2 size-1.5 -translate-x-1/2 rounded-full shadow-[0_0_14px_rgba(34,211,238,0.9)]" />
-            <span className="bg-live absolute top-1/2 -right-[3px] size-1.5 -translate-y-1/2 rounded-full shadow-[0_0_14px_rgba(255,0,80,0.9)]" />
-          </div>
-          <div
-            aria-hidden
-            className="absolute size-[170px] rounded-full bg-[radial-gradient(closest-side,rgba(0,242,254,0.18),rgba(255,0,80,0.1)_55%,transparent)] blur-xl sm:size-[220px]"
-          />
-          <div className="floaty relative px-10 py-14 sm:px-14">
-            <Logo size="xl" />
-          </div>
-        </motion.div>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            <span>LIVE SHOPPING · STUDIO LOMÉ & HUB AFRIQUE</span>
+          </motion.div>
 
-        <motion.p variants={item} className="eyebrow text-neon mb-5">
-          <span className="live-dot" />
-          Live shopping · Studio Lomé &amp; Hub Afrique
-        </motion.p>
+          {/* Headline */}
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="font-display text-4xl sm:text-6xl md:text-7xl font-800 tracking-tight text-white leading-[1.1] drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)]"
+          >
+            Ton business, <br className="hidden sm:block" />
+            en direct <br />
+            <span className="bg-gradient-to-r from-cyan-300 via-sky-200 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(34,211,238,0.5)]">
+              devant des milliers
+            </span>{" "}
+            <br className="hidden sm:block" />
+            <span className="bg-gradient-to-r from-pink-500 via-rose-400 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(255,0,80,0.5)]">
+              d&apos;acheteurs
+            </span>
+          </motion.h1>
 
-        <motion.h1
-          variants={item}
-          className="font-display text-[34px] leading-[1.08] font-extrabold tracking-tight text-balance sm:text-6xl"
-        >
-          Ton business, en direct
-          <br />
-          devant <span className="text-grad-live">des milliers d&rsquo;acheteurs</span>
-        </motion.h1>
+          {/* Subtitle */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mt-6 max-w-2xl text-base sm:text-lg text-slate-200 font-medium leading-relaxed drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]"
+          >
+            Réserve une session d&apos;1h30 dans notre studio pro à Lomé — ou diffuse depuis ta propre boutique partout en Afrique. Simple comme un message WhatsApp.
+          </motion.p>
 
-        <motion.p
-          variants={item}
-          className="text-mist mt-6 max-w-xl text-[15px] leading-relaxed text-pretty sm:text-lg"
-        >
-          Réserve une session d&rsquo;1h30 dans notre studio pro à Lomé — ou
-          diffuse depuis ta propre boutique partout en Afrique. Simple comme un
-          message WhatsApp.
-        </motion.p>
-
-        <motion.div
-          variants={item}
-          className="mt-9 grid w-full max-w-md grid-cols-1 gap-3 sm:max-w-none sm:grid-cols-2"
-        >
-          <Link href="/reserver?mode=presentiel" className="btn btn-primary sm:text-[15px]">
-            <MapPin className="size-[18px]" strokeWidth={2.4} />
-            Réserver au studio · Lomé
-          </Link>
-          <Link href="/reserver?mode=distance" className="btn btn-ghost sm:text-[15px]">
-            <Globe2 className="text-neon size-[18px]" strokeWidth={2.4} />
-            Diffuser à distance
-          </Link>
-        </motion.div>
-
-        <motion.p variants={item} className="mt-4 text-xs text-white/40">
-          Dès 2 500 XOF · Créneaux 08h–11h &amp; 18h–21h · Confirmation WhatsApp en 15 min
-        </motion.p>
-
-        {/* ——— Bandeau de preuve sociale ——— */}
-        <motion.div
-          variants={item}
-          className="glass mt-12 grid w-full grid-cols-2 divide-x divide-white/5 rounded-3xl sm:grid-cols-4"
-        >
-          {STATS.map((s, i) => (
-            <div
-              key={s.label}
-              className={`flex flex-col items-center gap-1 px-3 py-5 ${
-                i >= 2 ? "border-t border-white/5 sm:border-t-0" : ""
-              }`}
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
+          >
+            <Link
+              href="/reserver?mode=presentiel"
+              className="btn btn-primary w-full sm:w-auto !px-8 !py-4 !text-base shadow-[0_0_35px_rgba(255,0,80,0.5)] hover:shadow-[0_0_50px_rgba(255,0,80,0.8)] transition-all transform hover:-translate-y-0.5"
             >
-              <span className="font-display inline-flex items-center gap-1.5 text-lg font-bold">
-                <s.icon className="text-neon size-4" strokeWidth={2.4} />
-                {s.value}
-              </span>
-              <span className="text-[11px] leading-tight text-white/45">{s.label}</span>
-            </div>
-          ))}
-        </motion.div>
-      </motion.div>
+              <Calendar className="h-5 w-5" />
+              Réserver au Studio de Lomé
+            </Link>
+            <Link
+              href="/reserver?mode=distance"
+              className="btn glass border-amber-400/40 hover:border-amber-400 w-full sm:w-auto !px-8 !py-4 !text-base text-white bg-amber-500/10 hover:bg-amber-500/20 transition-all transform hover:-translate-y-0.5"
+            >
+              <PlayCircle className="h-5 w-5 text-amber-400" />
+              Live à distance (Hub Afrique)
+            </Link>
+          </motion.div>
 
-      <motion.a
-        href="#modes"
-        aria-label="Découvrir les deux modes"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4 }}
-        className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-1 text-[11px] tracking-[0.2em] text-white/35 uppercase transition hover:text-white/70 sm:flex"
-      >
-        Explorer
-        <ChevronDown className="size-3.5 animate-bounce" />
-      </motion.a>
+          {/* Stats Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-10 grid grid-cols-3 gap-3 sm:gap-6 border-t border-white/10 pt-6"
+          >
+            <div className="text-center border-r border-white/10 pr-2 sm:pr-4">
+              <div className="font-display text-xl sm:text-3xl font-700 text-amber-400 drop-shadow-[0_0_15px_rgba(245,158,11,0.6)]">56+</div>
+              <div className="mt-1 text-[11px] sm:text-xs text-slate-300 font-medium">créneaux / semaine</div>
+            </div>
+            <div className="text-center border-r border-white/10 pr-2 sm:pr-4">
+              <div className="font-display text-xl sm:text-3xl font-700 text-cyan-400 drop-shadow-[0_0_15px_rgba(34,211,238,0.6)]">12</div>
+              <div className="mt-1 text-[11px] sm:text-xs text-slate-300 font-medium">pays connectés</div>
+            </div>
+            <div className="text-center">
+              <div className="font-display text-xl sm:text-3xl font-700 text-pink-500 drop-shadow-[0_0_15px_rgba(255,0,80,0.6)]">1h30</div>
+              <div className="mt-1 text-[11px] sm:text-xs text-slate-300 font-medium">par session pro</div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
