@@ -19,7 +19,9 @@ import { fmtOffersGroups } from "@/lib/sections-data";
 import { BRAND, WINDOWS } from "@/lib/catalog";
 
 export default function HomePage() {
-  const { presentiel, distance } = fmtOffersGroups();
+  const groups = fmtOffersGroups() as { presentiel?: any[]; distance?: any[] };
+  const presentiel = groups.presentiel || [];
+  const distance = groups.distance || [];
 
   return (
     <div className="min-h-screen bg-abyss text-slate-100 overflow-x-hidden">
@@ -204,7 +206,7 @@ export default function HomePage() {
               <MapPin className="h-5 w-5 text-neon" /> Offres Studio Présentiel (Lomé)
             </h3>
             <div className="grid gap-6 md:grid-cols-3">
-              {presentiel.map((o, i) => (
+              {presentiel.map((o: any, i: number) => (
                 <Reveal key={o.id} delay={i * 0.1}>
                   <div className={`glass rounded-3xl p-6 flex flex-col justify-between h-full border ${o.popular ? "border-neon bg-neon/5" : "border-white/10"}`}>
                     <div>
@@ -214,7 +216,7 @@ export default function HomePage() {
                         </span>
                       )}
                       <h4 className="font-display text-xl font-700 text-white">{o.name}</h4>
-                      <div className="mt-4 font-display text-3xl font-800 text-grad">{o.priceLabel}</div>
+                      <div className="mt-4 font-display text-3xl font-800 text-grad">{o.priceLabel || o.priceFmt}</div>
                     </div>
                     <Link href={`/reserver?mode=presentiel&offer=${o.id}`} className="mt-8 btn btn-neon w-full">
                       Réserver
@@ -231,7 +233,7 @@ export default function HomePage() {
               <Globe className="h-5 w-5 text-mag" /> Offres Hub à Distance (Afrique)
             </h3>
             <div className="grid gap-6 md:grid-cols-3">
-              {distance.map((o, i) => (
+              {distance.map((o: any, i: number) => (
                 <Reveal key={o.id} delay={i * 0.1}>
                   <div className={`glass rounded-3xl p-6 flex flex-col justify-between h-full border ${o.popular ? "border-mag bg-mag/5" : "border-white/10"}`}>
                     <div>
@@ -241,7 +243,7 @@ export default function HomePage() {
                         </span>
                       )}
                       <h4 className="font-display text-xl font-700 text-white">{o.name}</h4>
-                      <div className="mt-4 font-display text-3xl font-800 text-grad-live">{o.priceLabel}</div>
+                      <div className="mt-4 font-display text-3xl font-800 text-grad-live">{o.priceLabel || o.priceFmt}</div>
                     </div>
                     <Link href={`/reserver?mode=distance&offer=${o.id}`} className="mt-8 btn btn-primary w-full">
                       Souscrire
