@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { Calendar, PlayCircle } from "lucide-react";
 
-export default function Hero() {
+export function Hero() {
   const [imgError, setImgError] = useState(false);
 
   return (
@@ -26,7 +26,7 @@ export default function Hero() {
           />
         ) : null}
 
-        {/* Lers fondu aux bords pour raccorder le header et footer sans cacher le centre */}
+        {/* Fondu léger aux bords */}
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-[#090a0f] via-[#090a0f]/50 to-transparent pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090a0f] via-[#090a0f]/60 to-transparent pointer-events-none" />
       </div>
@@ -124,3 +124,5 @@ export default function Hero() {
     </section>
   );
 }
+
+export default Hero;
