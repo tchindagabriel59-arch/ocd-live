@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Logo from "./logo";
 
-export default function SiteHeader() {
+export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -51,3 +51,5 @@ export default function SiteHeader() {
     </header>
   );
 }
+
+export default SiteHeader;
